@@ -1,0 +1,40 @@
+%% ARREGLO GARRAO A3
+%
+addpath('/data4/matlab/USIPA/CMOCEAN_START/')
+start
+%
+etopo_garrao='/data2/matlab/MOSA_BGQ/Garrao/ARREGLO_BATIMETRIA_GARRAO/Bati_Garrao_A3_v2.nc';
+grd3terao='/data2/matlab/MOSA_BGQ/Terao/CROCO_FILES/croco_grd.nc.3.etopo2';
+grd2='/data2/matlab/MOSA_BGQ/Garrao/ARREGLO_BATIMETRIA_GARRAO/croco_grd.nc.2.batigarrao';
+grd3='/data2/matlab/MOSA_BGQ/Garrao/ARREGLO_BATIMETRIA_GARRAO/croco_grd.nc.3.batigarrao';
+%
+ncdisp(etopo_garrao)
+%
+refinecoeff=3;
+topofile=etopo_garrao;
+newtopo=1;
+rtarget= 0.2500;
+nband=15;%[1 1 1 1];
+hmin=10;
+matchvolume=1;
+hmax_coast=15;
+n_filter_deep=2;
+n_filter_final=2;
+%
+parent_grd=grd2;
+child_grd=grd3;
+imin=38;
+imax=103;
+jmin=50;
+jmax=95;
+%
+[i1min,i1max,j1min,j1max]=nested_grid_Garrao3(grd2,grd3,imin,imax,jmin,jmax,...
+    refinecoeff,topofile,newtopo,rtarget,nband,hmin,matchvolume,...
+    hmax_coast,n_filter_deep,n_filter_final);
+%
+mask_parent=maskr_coarse;
+h=hnew;
+makr=maskrchild;
+r_max=rtarget;
+n_filter_deep_topo=n_filter_deep;
+%
